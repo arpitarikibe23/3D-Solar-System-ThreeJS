@@ -177,6 +177,18 @@ function createDarkLightToggle() {
   document.body.appendChild(toggleButton);
 }
 
+// Initial angles for planets to avoid them all starting in a straight line
+const planetInitialAngles = {
+  mercury: 0,
+  venus: Math.PI / 4,
+  earth: Math.PI / 2,
+  mars: (3 * Math.PI) / 4,
+  jupiter: Math.PI,
+  saturn: (5 * Math.PI) / 4,
+  uranus: (3 * Math.PI) / 2,
+  neptune: (7 * Math.PI) / 4,
+};
+
 //  Initializes scene, camera, planets, and controls
 
 function init() {
@@ -437,8 +449,8 @@ function createPauseButton() {
 
 // Positions planets in circular orbits
 
-function planetRevolver(time, speed, planet, orbitRadius) {
-  const angle = time * 0.001 * speed;
+function planetRevolver(time, speed, planet, orbitRadius, initialAngle = 0) {
+  const angle = time * 0.001 * speed + initialAngle;
   planet.position.x = planet_sun.position.x + orbitRadius * Math.cos(angle);
   planet.position.z = planet_sun.position.z + orbitRadius * Math.sin(angle);
 }
@@ -472,54 +484,64 @@ function animate(time) {
     planet.rotation.y += rotationSpeed;
   });
 
+
   // Orbit motions
+
   planetRevolver(
     effectiveTime,
     window.mercury_revolution_speed,
     planet_mercury,
-    mercury_orbit_radius
+    mercury_orbit_radius,
+    planetInitialAngles.mercury
   );
   planetRevolver(
     effectiveTime,
     window.venus_revolution_speed,
     planet_venus,
-    venus_orbit_radius
+    venus_orbit_radius,
+    planetInitialAngles.venus
   );
   planetRevolver(
     effectiveTime,
     window.earth_revolution_speed,
     planet_earth,
-    earth_orbit_radius
+    earth_orbit_radius,
+    planetInitialAngles.earth
   );
   planetRevolver(
     effectiveTime,
     window.mars_revolution_speed,
     planet_mars,
-    mars_orbit_radius
+    mars_orbit_radius,
+    planetInitialAngles.mars
   );
   planetRevolver(
     effectiveTime,
     window.jupiter_revolution_speed,
     planet_jupiter,
-    jupiter_orbit_radius
+    jupiter_orbit_radius,
+    planetInitialAngles.jupiter
   );
   planetRevolver(
     effectiveTime,
     window.saturn_revolution_speed,
     planet_saturn,
-    saturn_orbit_radius
+    saturn_orbit_radius,
+    planetInitialAngles.saturn
   );
   planetRevolver(
     effectiveTime,
     window.uranus_revolution_speed,
     planet_uranus,
-    uranus_orbit_radius
+    uranus_orbit_radius,
+    planetInitialAngles.uranus
   );
   planetRevolver(
     effectiveTime,
     window.neptune_revolution_speed,
     planet_neptune,
-    neptune_orbit_radius
+    neptune_orbit_radius,
+    planetInitialAngles.neptune
   );
 
   controls.update();
