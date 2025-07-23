@@ -308,9 +308,14 @@ function init() {
   ].forEach(createRing);
 
   // Renderer setup
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  // renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+  // document.body.appendChild(renderer.domElement);
+  
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }); // Change alpha to false
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+
 
   renderer.domElement.style.cssText =
     "display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;";
